@@ -8,7 +8,7 @@
     <h1>Jak hlasovali ostatní</h1>
     <ul>
         {% for jidlo, pocet in hlasy.items() %}
-        <li>{{ jidlo }}: {{ pocet }}</li>
+        <li>{{ jidlo }}: {% if celkem %}{{ (pocet / celkem * 100) | round(1) }} % ({{ pocet }} hlasů){% else %}0 % ({{ pocet }} hlasů){% endif %}</li>
         {% endfor %}
     </ul>
     <p><a href="/">Zpět na anketu</a></p>
