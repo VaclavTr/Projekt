@@ -5,10 +5,28 @@
     <title>Anketa– nejlepší jídlo</title>
 </head>
 <body>
-    <h1>Anketa– nejlepší jídlo</h1>
-    <p>Které jídlo je nejlepší?</p>
-    <form method="POST">
-        <input type="choice" name="name" placeholder="Zadej své jméno">
-			<option value="Pizza">Pizza</option>
-			<option value="Pizza">Pizza</option>
-			<option value="Pizza">Pizza</option>
+    <form action="/vyhodnoceni" method="POST">
+        <p>Jaké je tvoje nejoblíbenější jídlo?</p>
+        
+        <input type="radio" id="Pizza" name="jidlo" value="Pizza">
+        <label for="Pizza">Pizza</label><br>
+    
+        <input type="radio" id="Řízek" name="jidlo" value="Řízek">
+        <label for="Řízek">Řízek</label><br>
+    
+        <input type="radio" id="Zmrzlina" name="jidlo" value="Zmrzlina">
+        <label for="Zmrzlina">Zmrzlina</label><br>
+    
+        <input type="radio" id="Hamburger" name="jidlo" value="Hamburger">
+        <label for="Hamburger">Hamburger</label><br>
+        
+        <input type="radio" id="Kebab" name="jidlo" value="Kebab">
+        <label for="Kebab">Kebab</label><br>
+    
+        <br>
+        <button type="submit">Potvrdit výběr</button>
+
+        {% if jidlo %}
+		<strong>Tvoje nejoblíbenější jídlo je {{ jidlo }}</strong><hr>
+	    {% endif %}
+    </form>
