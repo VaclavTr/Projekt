@@ -2,18 +2,24 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-MOZNA_JIDLA = ("Pizza", "Řízek", "Zmrzlina", "Hamburger", "Kebab")
+MOZNA_JIDLA = ("Pizza", "Řízek", "Rizoto", "Hamburger", "Kebab")
 hlasy = {jidlo: 0 for jidlo in MOZNA_JIDLA}
 
 
 @app.route("/", methods=["GET", "POST"])
 def index():
     jidlo = None
+    error = None
     if request.method == "POST":
-        jidlo = request.form.get("jidlo")
-        if jidlo in hlasy:
-            hlasy[jidlo] += 1
-    return render_template("index.html", jidlo=jidlo)
+        vyber = request.form.get("jidlo")
+        if vyber in hlasy:
+            hlasy[vyber] += 1
+            jidlo = vyber
+        elif not vyber:
+            error = "Vyberte prosím jedno jídlo!"
+        else:
+            error = "Vyberte prosím platné jídlo!"#když uživatel vybere jídlo, které není v hlasech
+    return render_template("index.html", jidlo=jidlo, error=error)
 
 
 @app.route("/vyhodnoceni", methods=["GET"])

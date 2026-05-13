@@ -5,8 +5,11 @@
     <title>Anketa– nejlepší jídlo</title>
 </head>
 <body>
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
     {% if jidlo %}
-    <strong>Tvoje oblíbené jídlo je {{ jidlo }}<br>
+    <strong>Tvoje oblíbené jídlo je {{ jidlo }}.<br>
     Můžeš se podívat, <a href="/vyhodnoceni">jak hlasovali ostatní</a>!</strong><hr>
     {% endif %}
     <form method="POST">
@@ -18,8 +21,8 @@
         <input type="radio" id="Řízek" name="jidlo" value="Řízek">
         <label for="Řízek">Řízek</label><br>
 
-        <input type="radio" id="Zmrzlina" name="jidlo" value="Zmrzlina">
-        <label for="Zmrzlina">Zmrzlina</label><br>
+        <input type="radio" id="Rizoto" name="jidlo" value="Rizoto">
+        <label for="Rizoto">Rizoto</label><br>
 
         <input type="radio" id="Hamburger" name="jidlo" value="Hamburger">
         <label for="Hamburger">Hamburger</label><br>
