@@ -2,16 +2,23 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-
-@app.route("/", methods=["GET"])
-def page():
-    return render_template("page.html")
+MOZNA_JIDLA = ("Pizza", "Řízek", "Zmrzlina", "Hamburger", "Kebab")
+hlasy = {jidlo: 0 for jidlo in MOZNA_JIDLA}
 
 
-@app.route("/vyhodnoceni", methods=["POST"])
+@app.route("/", methods=["GET", "POST"])
+def index():
+    jidlo = None
+    if request.method == "POST":
+        jidlo = request.form.get("jidlo")
+        if jidlo in hlasy:
+            hlasy[jidlo] += 1
+    return render_template("index.html", jidlo=jidlo)
+
+
+@app.route("/vyhodnoceni", methods=["GET"])
 def vyhodnoceni():
-    jidlo = request.form.get("jidlo")
-    return render_template("page.html", jidlo=jidlo)
+    return render_template("vyhodnoceni.html", hlasy=hlasy)
 
 
 if __name__ == "__main__":

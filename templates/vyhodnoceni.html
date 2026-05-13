@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Vyhodnocení ankety</title>
+</head>
+<body>
+    <h1>Jak hlasovali ostatní</h1>
+    <ul>
+        {% for jidlo, pocet in hlasy.items() %}
+        <li>{{ jidlo }}: {{ pocet }}</li>
+        {% endfor %}
+    </ul>
+    <p><a href="/">Zpět na anketu</a></p>
+</body>
+</html>
