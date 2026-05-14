@@ -1,37 +1,52 @@
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-    <meta charset="UTF-8">
-    <title>Anketa– nejlepší jídlo</title>
-</head>
-<body>
+{% extends "layout.html" %}
+
+{% block title %}Anketa – nejlepší jídlo{% endblock %}
+
+{% block content %}
     {% if error %}
-    <p style="color: red;">{{ error }}</p>
+    <p class="zprava zprava-chyba">{{ error }}</p>
     {% endif %}
+
     {% if jidlo %}
-    <strong>Tvoje oblíbené jídlo je {{ jidlo }}.<br>
-    Můžeš se podívat, <a href="/vyhodnoceni">jak hlasovali ostatní</a>!</strong><hr>
+    <p class="zprava zprava-uspech">
+        Tvoje oblíbené jídlo je <strong>{{ jidlo }}</strong>.
+        Můžeš se podívat, <a href="/vyhodnoceni">jak hlasovali ostatní</a>!
+    </p>
+    <hr>
     {% endif %}
+
+    <h1>Které z těchto jídel je tvé oblíbené?</h1>
+
     <form method="POST">
-        <p>Které z těchto jídel je tvé oblíbené?</p>
+        <fieldset class="moznosti">
+            <legend class="skryty">Vyber oblíbené jídlo</legend>
 
-        <input type="radio" id="Pizza" name="jidlo" value="Pizza">
-        <label for="Pizza">Pizza</label><br>
+            <label for="Pizza">
+                <input type="radio" id="Pizza" name="jidlo" value="Pizza">
+                Pizza
+            </label>
 
-        <input type="radio" id="Řízek" name="jidlo" value="Řízek">
-        <label for="Řízek">Řízek</label><br>
+            <label for="Řízek">
+                <input type="radio" id="Řízek" name="jidlo" value="Řízek">
+                Řízek
+            </label>
 
-        <input type="radio" id="Rizoto" name="jidlo" value="Rizoto">
-        <label for="Rizoto">Rizoto</label><br>
+            <label for="Rizoto">
+                <input type="radio" id="Rizoto" name="jidlo" value="Rizoto">
+                Rizoto
+            </label>
 
-        <input type="radio" id="Hamburger" name="jidlo" value="Hamburger">
-        <label for="Hamburger">Hamburger</label><br>
+            <label for="Hamburger">
+                <input type="radio" id="Hamburger" name="jidlo" value="Hamburger">
+                Hamburger
+            </label>
 
-        <input type="radio" id="Kebab" name="jidlo" value="Kebab">
-        <label for="Kebab">Kebab</label><br>
+            <label for="Kebab">
+                <input type="radio" id="Kebab" name="jidlo" value="Kebab">
+                Kebab
+            </label>
+        </fieldset>
 
-        <br>
         <button type="submit">Potvrdit výběr</button>
     </form>
-</body>
-</html>
+{% endblock %}

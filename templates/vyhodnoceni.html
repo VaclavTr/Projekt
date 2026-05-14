@@ -1,16 +1,63 @@
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-    <meta charset="UTF-8">
-    <title>Vyhodnocení ankety</title>
-</head>
-<body>
+{% extends "layout.html" %}
+
+{% block title %}Vyhodnocení ankety{% endblock %}
+
+{% block content %}
     <h1>Jak hlasovali ostatní</h1>
-    <ul>
+
+    {% if celkem %}
+    <div class="graf">
+        <canvas id="graf-hlasy" aria-label="Koláčový graf hlasování"></canvas>
+    </div>
+    {% endif %}
+
+    <ul class="vysledky">
         {% for jidlo, pocet in hlasy.items() %}
-        <li>{{ jidlo }}: {% if celkem %}{{ (pocet / celkem * 100) | round(1) }} % ({{ pocet }} hlasů){% else %}0 % ({{ pocet }} hlasů){% endif %}</li>
+        <li>
+            <span>{{ jidlo }}</span>
+            <span class="pocet">
+                {% if celkem %}{{ (pocet / celkem * 100) | round(1) }} % ({{ pocet }} hlasů){% else %}0 % ({{ pocet }} hlasů){% endif %}
+            </span>
+        </li>
         {% endfor %}
     </ul>
-    <p><a href="/">Zpět na anketu</a></p>
-</body>
-</html>
+
+    <p class="akce">
+        <a class="tlacitko" href="/">Zpět na anketu</a>
+    </p>
+{% endblock %}
+
+{% block extra_scripts %}
+    {% if celkem %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script>
+        const popisky = {{ hlasy.keys() | list | tojson }};
+        const hodnoty = {{ hlasy.values() | list | tojson }};
+
+        new Chart(document.getElementById("graf-hlasy"), {
+            type: "pie",
+            data: {
+                labels: popisky,
+                datasets: [{
+                    data: hodnoty,
+                    backgroundColor: ["#D62828", "#F77F00", "#2A9D8F", "#1D3557", "#9D4EDD"],
+                    borderColor: "#ffffff",
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        position: "bottom",
+                        labels: {
+                            font: {
+                                family: "Nunito"
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    {% endif %}
+{% endblock %}

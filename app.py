@@ -36,9 +36,8 @@ def index():
             ulozit_hlasy(hlasy)
             jidlo = vyber
         elif not vyber:
-            error = "Vyberte prosím jedno jídlo!"
-        else:
-            error = "Vyberte prosím platné jídlo!"
+            error = "Vyberte prosím jedno z uvedených jídel!"
+        
     return render_template("index.html", jidlo=jidlo, error=error)
 
 
